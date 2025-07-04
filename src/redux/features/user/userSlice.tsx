@@ -1,4 +1,3 @@
-import type { RootState } from "@/redux/store";
 import type { IUser } from "@/types";
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 
@@ -7,7 +6,16 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  users: [],
+  users: [
+    {
+      id: "54654a4c-c603-4b30-92dd-154ce9108518",
+      name: "user1",
+    },
+    {
+      id: "54654a4c-c603-4b30-92dd-154ce9108519",
+      name: "user2",
+    },
+  ],
 };
 
 type DraftUser = Pick<IUser, "name">;

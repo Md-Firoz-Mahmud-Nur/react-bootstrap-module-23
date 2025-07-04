@@ -16,7 +16,7 @@ import type { FieldValues, SubmitHandler } from "react-hook-form";
 import { v4 as uuid } from "uuid";
 import { useAppDispatch } from "@/redux/hook";
 import TMForm from "@/components/form/TaskMasterForm";
-import TMInput from "@/components/form/TMInput";
+import TMInput from "@/components/form/TaskMasterInput";
 
 export function AddUserModal() {
   const dispatch = useAppDispatch();

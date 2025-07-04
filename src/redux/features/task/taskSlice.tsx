@@ -17,6 +17,7 @@ const initialState: InitialState = {
       dueDate: "2025-11",
       isCompleted: true,
       priority: "High",
+      assignedTo: null,
     },
     {
       id: "kqT1mErFNTfQL9cW8ajoD",
@@ -25,6 +26,7 @@ const initialState: InitialState = {
       dueDate: "2025-11",
       isCompleted: false,
       priority: "Medium",
+      assignedTo: null,
     },
   ],
   filter: "All",
@@ -32,14 +34,14 @@ const initialState: InitialState = {
 
 export type DraftTask = Pick<
   ITask,
-  "title" | "description" | "dueDate" | "priority"
+  "title" | "description" | "dueDate" | "priority" | "assignedTo"
 >;
 
 const createTask = (taskData: DraftTask): ITask => {
   return {
     id: nanoid(),
     ...taskData,
-    isCompleted: true,
+    isCompleted: false,
   };
 };
 
