@@ -1,14 +1,15 @@
 import { AddTaskModal } from "@/components/modules/tasks/AddTaskModal";
 import TaskCard from "@/components/modules/tasks/TaskCard";
-import { selectFilter, selectTasks } from "@/redux/features/task/taskSlice";
+import {  selectTasks } from "@/redux/features/task/taskSlice";
+// import { selectFilter } from "@/redux/features/task/taskSlice";
 import { useAppSelector } from "@/redux/hook";
 
 export default function Tasks() {
   const tasks = useAppSelector(selectTasks);
-  const filter = useAppSelector(selectFilter);
+  // const filter = useAppSelector(selectFilter);
 
-  console.log(tasks);
-  console.log(filter);
+  // console.log(tasks);
+  // console.log(filter);
 
   return (
     <div

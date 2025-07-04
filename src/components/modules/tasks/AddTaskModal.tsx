@@ -16,6 +16,13 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
@@ -24,6 +31,7 @@ interface FormData {
   title: string;
   description: string;
   isCompleted: boolean;
+  priority: "High" | "Medium" | "Low";
 }
 export function AddTaskModal() {
   const form = useForm<FormData>({
@@ -31,6 +39,7 @@ export function AddTaskModal() {
       title: "",
       description: "",
       isCompleted: false,
+      priority: "High",
     },
   });
 
@@ -77,6 +86,29 @@ export function AddTaskModal() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="priority"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Priority</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select priority" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="High">High </SelectItem>
+                        <SelectItem value="Medium">Medium</SelectItem>
+                        <SelectItem value="Low">Low</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />{" "}
             </Form>
             <DialogFooter>
               <DialogClose asChild>
