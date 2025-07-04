@@ -11,7 +11,7 @@ interface InitialState {
 const initialState: InitialState = {
   tasks: [
     {
-      id: "0",
+      id: "kqT1mErFNTfQL9cW8ajoC",
       title: "Initialize Frontend",
       description: "Create Home Page And Routing",
       dueDate: "2025-11",
@@ -19,7 +19,7 @@ const initialState: InitialState = {
       priority: "High",
     },
     {
-      id: "1",
+      id: "kqT1mErFNTfQL9cW8ajoD",
       title: "GitHub",
       description: "Create GitHub Account",
       dueDate: "2025-11",
@@ -30,7 +30,10 @@ const initialState: InitialState = {
   filter: "all",
 };
 
-export type DraftTask = Pick<ITask, "title" | "description" | "dueDate" | "priority">;
+export type DraftTask = Pick<
+  ITask,
+  "title" | "description" | "dueDate" | "priority"
+>;
 
 const createTask = (taskData: DraftTask): ITask => {
   return {
@@ -48,6 +51,13 @@ const taskSlice = createSlice({
       const taskData = createTask(action.payload);
       state.tasks.push(taskData);
     },
+    toggleCompleteState: (state, action: PayloadAction<string>) => {
+      state.tasks.forEach((task) =>
+        task.id === action.payload
+          ? (task.isCompleted = !task.isCompleted)
+          : task
+      );
+    },
   },
 });
 
@@ -59,6 +69,6 @@ export const selectFilter = (state: RootState) => {
   return state.todo.filter;
 };
 
-export const { addTask } = taskSlice.actions;
+export const { addTask, toggleCompleteState } = taskSlice.actions;
 
 export default taskSlice.reducer;
