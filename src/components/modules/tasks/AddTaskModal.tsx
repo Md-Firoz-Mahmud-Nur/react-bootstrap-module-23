@@ -54,8 +54,8 @@ export function AddTaskModal() {
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: ITask) => {
-    console.log(data);
-    dispatch(addTask(data));
+    const { title, description, dueDate, priority } = data;
+    dispatch(addTask({ title, description, dueDate, priority }));
   };
 
   return (
