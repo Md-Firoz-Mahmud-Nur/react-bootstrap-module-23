@@ -1,17 +1,24 @@
 import { AddTaskModal } from "@/components/modules/tasks/AddTaskModal";
 import TaskCard from "@/components/modules/tasks/TaskCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useGetTasksQuery } from "@/redux/api/baseApi";
 import { selectTasks, updateFilter } from "@/redux/features/task/taskSlice";
 // import { selectFilter } from "@/redux/features/task/taskSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 
 export default function Tasks() {
+  const { data, isLoading, isError } = useGetTasksQuery(undefined);
+  console.log(data, isLoading, isError);
+
   const tasks = useAppSelector(selectTasks);
   const dispatch = useAppDispatch();
   // const filter = useAppSelector(selectFilter);
 
   // console.log(tasks);
   // console.log(filter);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div

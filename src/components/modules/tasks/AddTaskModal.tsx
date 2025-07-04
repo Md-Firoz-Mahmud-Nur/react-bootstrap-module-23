@@ -35,11 +35,13 @@ import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { addTask } from "@/redux/features/task/taskSlice";
+import { useAppSelector } from "@/redux/hook";
+// import { useAppDispatch } from "@/redux/hook";
+// import { addTask } from "@/redux/features/task/taskSlice";
 import type { ITask } from "@/types";
 import { selectUser } from "@/redux/features/user/userSlice";
 import { useState } from "react";
+import { useCreateTaskMutation } from "@/redux/api/baseApi";
 
 export function AddTaskModal() {
   const [open, setOpen] = useState(false);
@@ -58,11 +60,24 @@ export function AddTaskModal() {
     },
   });
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const onSubmit = (data: ITask) => {
-    const { title, description, dueDate, priority, assignedTo } = data;
-    dispatch(addTask({ title, description, dueDate, priority, assignedTo }));
+  const [createTask, { data, isLoading, isError }] = useCreateTaskMutation();
+
+  console.log("data", data, isLoading, isError);
+
+  const onSubmit = async (data: ITask) => {
+    const taskData = {
+      ...data,
+      isCompleted: false,
+    };
+
+    const res = await createTask(taskData);
+
+    console.log("inside add task", res);
+
+    // const { title, description, dueDate, priority, assignedTo } = data;
+    // dispatch(addTask({ title, description, dueDate, priority, assignedTo }));
     setOpen(false);
     form.reset();
   };
