@@ -30,22 +30,19 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useForm } from "react-hook-form";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
 import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { useAppDispatch } from "@/redux/hook";
+import { addTask } from "@/redux/features/task/taskSlice";
+import type { ITask } from "@/types";
 
-interface FormData {
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  priority: "High" | "Medium" | "Low";
-  dueDate: string;
-}
 export function AddTaskModal() {
-  const form = useForm<FormData>({
+  const form = useForm<ITask>({
     defaultValues: {
+      id: "",
       title: "",
       description: "",
       isCompleted: false,
@@ -54,8 +51,11 @@ export function AddTaskModal() {
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (data: ITask) => {
     console.log(data);
+    dispatch(addTask(data));
   };
 
   return (
