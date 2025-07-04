@@ -15,7 +15,7 @@ const initialState: InitialState = {
       title: "Initialize Frontend",
       description: "Create Home Page And Routing",
       dueDate: "2025-11",
-      isCompleted: false,
+      isCompleted: true,
       priority: "High",
     },
     {
@@ -58,6 +58,9 @@ const taskSlice = createSlice({
           : task
       );
     },
+    deleteTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((item) => item.id !== action.payload);
+    },
   },
 });
 
@@ -69,6 +72,6 @@ export const selectFilter = (state: RootState) => {
   return state.todo.filter;
 };
 
-export const { addTask, toggleCompleteState } = taskSlice.actions;
+export const { addTask, toggleCompleteState, deleteTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
