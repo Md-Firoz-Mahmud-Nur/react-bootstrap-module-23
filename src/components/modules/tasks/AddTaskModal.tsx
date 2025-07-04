@@ -39,8 +39,11 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { addTask } from "@/redux/features/task/taskSlice";
 import type { ITask } from "@/types";
 import { selectUser } from "@/redux/features/user/userSlice";
+import { useState } from "react";
 
 export function AddTaskModal() {
+  const [open, setOpen] = useState(false);
+
   const users = useAppSelector(selectUser);
 
   const form = useForm<ITask>({
@@ -60,10 +63,12 @@ export function AddTaskModal() {
   const onSubmit = (data: ITask) => {
     const { title, description, dueDate, priority, assignedTo } = data;
     dispatch(addTask({ title, description, dueDate, priority, assignedTo }));
+    setOpen(false);
+    form.reset();
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
           <Button>Add Task</Button>
