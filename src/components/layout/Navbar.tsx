@@ -14,6 +14,12 @@ export default function Navbar() {
       <Link className="hover:underline" to="/user">
         User
       </Link>
+      <Link className="hover:underline" to="/counter">
+        Counter
+      </Link>
+      <Link className="hover:underline" to="/demoButton">
+        Demo Button
+      </Link>
       <div className="ml-auto">
         <ModeToggle />
       </div>
